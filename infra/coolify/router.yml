@@ -1,0 +1,13 @@
+http:
+  routers:
+    luccasfr-site:
+      rule: Host(`luccasfr.dev`)
+      entryPoints: [websecure]
+      tls:
+        certResolver: acmeresolver
+      service: luccasfr-site-origin
+  services:
+    luccasfr-site-origin:
+      loadBalancer:
+        servers:
+          - url: http://100.103.252.10:9058
