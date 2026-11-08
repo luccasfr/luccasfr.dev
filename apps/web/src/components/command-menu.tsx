@@ -12,10 +12,11 @@ import {
 import { Command } from "@luccasfr/ui/components/command";
 import { Kbd, KbdGroup } from "@luccasfr/ui/components/kbd";
 import {
-  ArrowUpRight,
+  ExternalLink,
   AtSign,
   FolderGit2,
   Hash,
+  Languages,
   Monitor,
   Moon,
   Search,
@@ -26,18 +27,15 @@ import { toast } from "sonner";
 
 import { useTheme } from "@/components/theme-provider";
 import { useMountEffect } from "@/hooks/use-mount-effect";
+import { useI18n } from "@/i18n/locale";
 import { profile, projects } from "@/lib/content";
 
-const sections = [
-  { id: "trabalhos", label: "Trabalhos" },
-  { id: "open-source", label: "Open source" },
-  { id: "stack", label: "Stack" },
-  { id: "contato", label: "Contato" },
-] as const;
+const sections = ["trabalhos", "open-source", "stack", "contato"] as const;
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false);
   const { setTheme } = useTheme();
+  const { t, locale, setLocale } = useI18n();
 
   useMountEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -62,12 +60,14 @@ export function CommandMenu() {
     <>
       <Button
         variant="outline"
-        size="sm"
         onClick={() => setOpen(true)}
-        className="gap-3 text-muted-foreground"
+        aria-label={t.header.searchLabel}
+        className="gap-3 border-border text-muted-foreground"
       >
-        <Search />
-        <span className="hidden sm:inline">buscar</span>
+        <span className="flex items-center gap-2">
+          <Search />
+          <span className="hidden sm:inline">{t.header.search}</span>
+        </span>
         <KbdGroup className="hidden sm:inline-flex">
           <Kbd>Ctrl</Kbd>
           <Kbd>K</Kbd>
@@ -77,28 +77,28 @@ export function CommandMenu() {
       <CommandDialog
         open={open}
         onOpenChange={setOpen}
-        title="Paleta de comandos"
-        description="Navegue pela página ou abra links"
+        title={t.palette.title}
+        description={t.palette.description}
       >
         <Command>
-          <CommandInput placeholder="digite um comando…" />
+          <CommandInput placeholder={t.palette.placeholder} />
           <CommandList>
-            <CommandEmpty>nada encontrado. tente "telyo".</CommandEmpty>
-            <CommandGroup heading="ir para">
+            <CommandEmpty>{t.palette.empty}</CommandEmpty>
+            <CommandGroup heading={t.palette.goTo}>
               {sections.map((section) => (
-                <CommandItem key={section.id} onSelect={() => run(() => goTo(section.id))}>
+                <CommandItem key={section} onSelect={() => run(() => goTo(section))}>
                   <Hash />
-                  {section.label}
+                  {t.palette.sections[section]}
                 </CommandItem>
               ))}
             </CommandGroup>
             <CommandSeparator />
-            <CommandGroup heading="projetos">
+            <CommandGroup heading={t.palette.projects}>
               {projects.map((project) => (
                 <CommandItem
                   key={project.id}
-                  value={`${project.name} ${project.kind}`}
-                  onSelect={() => run(() => (project.url ? openUrl(project.url) : goTo(project.id)))}
+                  value={`${project.name} ${t.work.projects[project.id].what}`}
+                  onSelect={() => run(() => goTo(project.id))}
                 >
                   <FolderGit2 />
                   {project.name}
@@ -107,36 +107,47 @@ export function CommandMenu() {
               ))}
             </CommandGroup>
             <CommandSeparator />
-            <CommandGroup heading="links">
+            <CommandGroup heading={t.palette.links}>
               <CommandItem onSelect={() => run(() => openUrl(profile.github))}>
-                <ArrowUpRight />
+                <ExternalLink />
                 GitHub
               </CommandItem>
               <CommandItem
                 onSelect={() =>
                   run(() => {
                     void navigator.clipboard.writeText(profile.email);
-                    toast.success("e-mail copiado", { description: profile.email });
+                    toast.success(t.contact.copied, { description: profile.email });
                   })
                 }
               >
                 <AtSign />
-                Copiar e-mail
+                {t.palette.copyEmail}
               </CommandItem>
             </CommandGroup>
             <CommandSeparator />
-            <CommandGroup heading="tema">
+            <CommandGroup heading={t.palette.theme}>
               <CommandItem onSelect={() => run(() => setTheme("dark"))}>
                 <Moon />
-                Escuro
+                {t.theme.dark}
               </CommandItem>
               <CommandItem onSelect={() => run(() => setTheme("light"))}>
                 <Sun />
-                Claro
+                {t.theme.light}
               </CommandItem>
               <CommandItem onSelect={() => run(() => setTheme("system"))}>
                 <Monitor />
-                Sistema
+                {t.theme.system}
+              </CommandItem>
+            </CommandGroup>
+            <CommandSeparator />
+            <CommandGroup heading={t.palette.language}>
+              <CommandItem onSelect={() => run(() => setLocale("pt-BR"))} data-checked={locale === "pt-BR"}>
+                <Languages />
+                Português (Brasil)
+              </CommandItem>
+              <CommandItem onSelect={() => run(() => setLocale("en-US"))} data-checked={locale === "en-US"}>
+                <Languages />
+                English
               </CommandItem>
             </CommandGroup>
           </CommandList>

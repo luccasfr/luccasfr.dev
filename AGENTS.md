@@ -47,8 +47,20 @@ cd apps/web && bunx shadcn@latest add <componente>
 
 ## Identidade visual
 
-Estética de dev/terminal: fontes mono (Geist Mono para texto, Martian Mono para títulos), tema escuro, acento verde-limão, bordas retas, animações de digitação, cursor piscando e revelação ao rolar. Respeite `prefers-reduced-motion` (`motion-safe:`/`motion-reduce:`).
+Preto e branco puros (`oklch(0 0 0)` / `oklch(1 0 0)`), sem cor de acento. Padrão escuro; o claro é a inversão exata.
+
+- Fontes: Doto (matriz de pontos) só em títulos grandes (`font-display`, caixa-alta, peso 900); Geist Mono em todo o resto.
+- Destaque = inversão: hover e item ativo viram bloco branco com texto preto (`bg-foreground text-background`). Nada de cinza "sujo" de fundo.
+- Movimento com personalidade: nome do hero se decodifica (`ScrambleText`), títulos de seção re-embaralham no hover, cursor em bloco piscando, faixa de linguagens rolando, relógio de São Paulo ao vivo.
+- Prints dos projetos em cor, num quadro com borda; nunca janela de navegador desenhada.
+- Respeite `prefers-reduced-motion` (`motion-safe:`; `ScrambleText` já checa).
+
+## Idiomas
+
+- pt-BR e en-US. Todo texto visível vem de `apps/web/src/i18n/messages.ts` (`useI18n()` → `t`); nada de string solta em componente.
+- Detecção: `navigator.language` igual a `pt-BR` → pt-BR; qualquer outro → en-US. A escolha manual (botão PT/EN ou Ctrl+K) fica em `localStorage["locale"]` e vence a detecção.
+- `en-US` é tipado a partir de `pt-BR` (`Messages`): ao criar uma chave, preencha as duas línguas.
 
 ## Conteúdo
 
-Textos em pt-BR. Projetos e fatos vêm de fontes reais (GitHub `luccasfr`, sites publicados). Não invente métricas, clientes ou datas.
+Textos em pt-BR e en-US. Projetos e fatos vêm de fontes reais (GitHub `luccasfr`, sites publicados). Não invente métricas, clientes ou datas.

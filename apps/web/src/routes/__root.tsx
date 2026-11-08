@@ -1,6 +1,5 @@
 import { Toaster } from "@luccasfr/ui/components/sonner";
 import { HeadContent, Outlet, createRootRouteWithContext } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -12,15 +11,6 @@ export interface RouterAppContext {}
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootComponent,
   head: () => ({
-    meta: [
-      {
-        title: "Lucas Ferreira — Senior Full-Stack Engineer",
-      },
-      {
-        name: "description",
-        content: "Lucas Ferreira (luccasfr): engenheiro full-stack e sócio da JeraSoft. Delphi, PHP, TypeScript, Python e Rust.",
-      },
-    ],
     links: [
       {
         rel: "icon",
@@ -44,9 +34,8 @@ function RootComponent() {
           <Header />
           <Outlet />
         </div>
-        <Toaster richColors />
+        <Toaster />
       </ThemeProvider>
-      {import.meta.env.DEV && <TanStackRouterDevtools position="bottom-left" />}
     </>
   );
 }

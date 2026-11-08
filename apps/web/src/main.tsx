@@ -1,9 +1,10 @@
 import "@fontsource-variable/geist-mono";
-import "@fontsource-variable/martian-mono";
+import "@fontsource-variable/doto";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 
 import Loader from "./components/loader";
+import { applyDocumentLocale } from "./i18n/locale";
 import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({
@@ -19,6 +20,8 @@ declare module "@tanstack/react-router" {
     router: typeof router;
   }
 }
+
+applyDocumentLocale();
 
 const rootElement = document.getElementById("app");
 
