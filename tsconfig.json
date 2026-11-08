@@ -1,0 +1,3 @@
+{
+  "extends": "@luccasfr/config/tsconfig.base.json"
+}
