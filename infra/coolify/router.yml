@@ -10,4 +10,4 @@ http:
     luccasfr-site-origin:
       loadBalancer:
         servers:
-          - url: http://100.103.252.10:9058
+          - url: http://100.103.252.10:9059
