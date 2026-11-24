@@ -22,6 +22,7 @@ const ptBR = {
     system: "Sistema",
   },
   hero: {
+    portraitAlt: "Retrato de Lucas Ferreira desenhado em caracteres ASCII",
     role: "engenheiro full-stack",
     city: "são paulo",
     introBefore: "Escrevo software que precisa rodar todo dia, do Delphi ao Rust. Sou sócio da",
@@ -41,6 +42,10 @@ const ptBR = {
       "repo-save-editor": {
         what: "Editor web de saves do jogo R.E.P.O.",
         relation: "Open source, 69 estrelas",
+      },
+      "acbrlib-forge": {
+        what: "Compila e testa a ACBrLib ConsoleMT para várias plataformas a partir de revisões do SVN oficial do ACBr.",
+        relation: "Open source, licença MIT",
       },
     },
     code: "código no GitHub",
@@ -119,6 +124,7 @@ const enUS: Messages = {
     system: "System",
   },
   hero: {
+    portraitAlt: "Portrait of Lucas Ferreira drawn in ASCII characters",
     role: "full-stack engineer",
     city: "são paulo",
     introBefore: "I write software that has to run every day, from Delphi to Rust. I'm a partner at",
@@ -138,6 +144,10 @@ const enUS: Messages = {
       "repo-save-editor": {
         what: "Web editor for R.E.P.O game saves.",
         relation: "Open source, 69 stars",
+      },
+      "acbrlib-forge": {
+        what: "Builds and tests ACBrLib ConsoleMT for multiple platforms from official ACBr SVN revisions.",
+        relation: "Open source, MIT license",
       },
     },
     code: "code on GitHub",

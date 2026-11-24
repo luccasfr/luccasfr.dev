@@ -83,8 +83,8 @@
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
   --font-display: "Doto Variable", "Geist Mono Variable", ui-monospace, monospace;
 
-  --text-name: clamp(3rem, 19vw, 17rem);
-  --text-name--line-height: 0.82;
+  --text-name: min(19cqw, 10.5rem);
+  --text-name--line-height: 0.9;
   --text-section: clamp(2.25rem, 6vw, 5.5rem);
   --text-section--line-height: 0.9;
 

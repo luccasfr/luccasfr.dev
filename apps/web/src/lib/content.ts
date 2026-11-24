@@ -10,7 +10,7 @@ export const profile = {
 export type ProjectLink = { kind: "site" | "code"; href: string };
 
 export type Project = {
-  id: "telyo" | "repo-save-editor";
+  id: "telyo" | "repo-save-editor" | "acbrlib-forge";
   index: string;
   name: string;
   links: ProjectLink[];
@@ -31,6 +31,12 @@ export const projects: Project[] = [
       { kind: "site", href: "https://repo-save-editor.jerasoft.com.br" },
       { kind: "code", href: "https://github.com/luccasfr/repo-save-editor" },
     ],
+  },
+  {
+    id: "acbrlib-forge",
+    index: "03",
+    name: "ACBrLib Forge",
+    links: [{ kind: "code", href: "https://github.com/luccasfr/acbrlib-forge" }],
   },
 ];
 

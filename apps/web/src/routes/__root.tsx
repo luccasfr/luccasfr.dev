@@ -10,14 +10,6 @@ export interface RouterAppContext {}
 
 export const Route = createRootRouteWithContext<RouterAppContext>()({
   component: RootComponent,
-  head: () => ({
-    links: [
-      {
-        rel: "icon",
-        href: "/favicon.ico",
-      },
-    ],
-  }),
 });
 
 function RootComponent() {

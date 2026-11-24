@@ -4,6 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { toast } from "sonner";
 
+import { AsciiPortrait } from "@/components/ascii-portrait";
 import { ScrambleText } from "@/components/scramble-text";
 import { useSaoPauloClock } from "@/hooks/use-clock";
 import { useI18n } from "@/i18n/locale";
@@ -48,48 +49,59 @@ function Clock() {
 function Hero() {
   const { t } = useI18n();
   return (
-    <section className={cn(container, "flex min-h-[calc(100svh-3.5rem)] flex-col justify-between gap-12 pt-10 pb-8")}>
-      <div className="flex flex-wrap justify-between gap-x-8 gap-y-2 text-xs text-muted-foreground motion-safe:animate-rise">
+    <section className={cn(container, "pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-16")}>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 border-t pt-3 text-xs text-muted-foreground">
         <p>{t.hero.role}</p>
         <p>
           {t.hero.city}, <Clock />
         </p>
       </div>
 
-      <h1 className="overflow-hidden font-display text-name font-black tracking-tight uppercase">
-        <ScrambleText text="Lucas" autoplay delay={150} className="block" />
-        <span className="flex items-end">
-          <ScrambleText text="Ferreira" autoplay delay={420} />
-          <span
-            aria-hidden
-            className="mb-[0.06em] ml-[0.08em] inline-block h-[0.72em] w-[0.42em] bg-foreground motion-safe:animate-blink"
-          />
-        </span>
-      </h1>
+      <div className="grid grid-cols-[minmax(0,1.9fr)_minmax(0,1fr)] items-end gap-x-3 gap-y-7 pt-10 sm:gap-x-8 sm:pt-14 lg:gap-x-12">
+        <div className="@container min-w-0">
+          <h1 className="font-display text-name font-black tracking-tight uppercase">
+            <ScrambleText text="Lucas" autoplay delay={150} className="block" />
+            <span className="flex items-end">
+              <ScrambleText text="Ferreira" autoplay delay={420} />
+              <span
+                aria-hidden
+                className="mb-[0.06em] ml-[0.08em] inline-block h-[0.72em] w-[0.42em] shrink-0 bg-foreground motion-safe:animate-blink"
+              />
+            </span>
+          </h1>
+        </div>
 
-      <div className="grid gap-8 border-t pt-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
-        <p className="max-w-[52ch] text-base/relaxed motion-safe:animate-rise motion-safe:[animation-delay:900ms]">
-          {t.hero.introBefore}{" "}
-          <a href={profile.jerasoft} target="_blank" rel="noreferrer" className={invertLink}>
-            JeraSoft
-          </a>{" "}
-          {t.hero.introAfter}
-        </p>
-        <div className="flex flex-wrap gap-2 motion-safe:animate-rise motion-safe:[animation-delay:1050ms]">
-          <a href="#trabalhos" className={buttonVariants({ size: "lg" })}>
-            {t.hero.work}
-          </a>
-          <a href={`mailto:${profile.email}`} className={buttonVariants({ size: "lg", variant: "outline" })}>
-            {t.hero.email}
-          </a>
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noreferrer"
-            className={buttonVariants({ size: "lg", variant: "outline" })}
-          >
-            {t.hero.github}
-          </a>
+        <div className="@container col-start-2 row-start-1 w-full max-w-96 justify-self-end md:row-span-2 md:self-end">
+          <AsciiPortrait label={t.hero.portraitAlt} delay={200} className="mask-b-from-74% mask-b-to-98%" />
+        </div>
+
+        <div className="col-span-full grid gap-5 md:col-span-1 md:col-start-1">
+          <p className="max-w-[52ch] text-sm/relaxed text-pretty sm:text-base/relaxed">
+            {t.hero.introBefore}{" "}
+            <a href={profile.jerasoft} target="_blank" rel="noreferrer" className={invertLink}>
+              JeraSoft
+            </a>{" "}
+            {t.hero.introAfter}
+          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <a href="#trabalhos" className={buttonVariants({ size: "lg" })}>
+              {t.hero.work}
+            </a>
+            <a
+              href={`mailto:${profile.email}`}
+              className={cn(buttonVariants({ size: "lg", variant: "ghost" }), "px-3 hover:bg-foreground hover:text-background")}
+            >
+              {t.hero.email}
+            </a>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(buttonVariants({ size: "lg", variant: "ghost" }), "px-3 hover:bg-foreground hover:text-background")}
+            >
+              {t.hero.github}
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -100,7 +112,7 @@ function Hero() {
 
 function SectionTitle({ id, title, count, children }: { id?: string; title: string; count?: string; children?: ReactNode }) {
   return (
-    <div className="mb-10 flex flex-col gap-4 border-t pt-6 md:flex-row md:items-end md:justify-between">
+    <div className="mb-6 flex flex-col gap-3 border-t pt-5 sm:mb-8 md:flex-row md:items-end md:justify-between">
       <h2 id={id} className="scroll-mt-20 font-display text-section font-black uppercase">
         <ScrambleText key={title} text={title} replayOnHover />
         {count && <span className="ml-3 align-top font-sans text-sm font-normal text-muted-foreground">({count})</span>}
@@ -115,7 +127,7 @@ function SectionTitle({ id, title, count, children }: { id?: string; title: stri
 function WorkIndex() {
   const { t } = useI18n();
   return (
-    <section className={cn(container, "py-24")}>
+    <section className={cn(container, "py-12 sm:py-16 lg:py-20")}>
       <SectionTitle id="trabalhos" title={t.work.title} count={String(projects.length).padStart(2, "0")}>
         {t.work.intro}
       </SectionTitle>
@@ -190,7 +202,7 @@ function Languages() {
 function Stack() {
   const { t } = useI18n();
   return (
-    <section className={cn(container, "py-24")}>
+    <section className={cn(container, "py-12 sm:py-16 lg:py-20")}>
       <SectionTitle id="stack" title={t.stack.title}>
         {t.stack.intro}
       </SectionTitle>
@@ -214,7 +226,7 @@ function Stack() {
 function OpenSource() {
   const { t } = useI18n();
   return (
-    <section className={cn(container, "pb-24")}>
+    <section className={cn(container, "pb-12 sm:pb-16 lg:pb-20")}>
       <SectionTitle id="open-source" title={t.openSource.title} count={String(openSource.length).padStart(2, "0")} />
       <ul className="border-t">
         {openSource.map((repo) => (
@@ -246,7 +258,7 @@ function OpenSource() {
 function Contact() {
   const { t } = useI18n();
   return (
-    <section className={cn(container, "pb-24")}>
+    <section className={cn(container, "pb-12 sm:pb-16 lg:pb-20")}>
       <SectionTitle id="contato" title={t.contact.title}>
         {t.contact.intro}
       </SectionTitle>
